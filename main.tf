@@ -153,8 +153,8 @@ resource "aws_instance" "jndiexploit-server" {
               #!/bin/bash
               sudo yum install docker -y
               sudo systemctl start docker.service
-              MY_IP=$(curl ipconfig.io)
-              sudo docker run --name jndi -p 8888:8888 -p 1389:1389 -e IP=$MY_IP raphaelkw/jndiexploit
+              PRIVATE_IP=$(curl ipconfig.io)
+              sudo docker run --name jndi -p 8888:8888 -p 1389:1389 -e privateip=$PRIVATE_IP raphaelkw/jndiexploit
               EOF
 
 }
@@ -184,8 +184,25 @@ output "log4shellapp-publicip" {
   value = aws_instance.log4shellapp.public_ip
 }
 
+# create amazon linux server and run docker for fixedapp
+resource "aws_instance" "fixedapp" {
+  ami             = var.aws_amazon_ami_id
+  instance_type   = var.ec2_instance_type
+  key_name        = aws_key_pair.ssh_key.key_name
+  subnet_id       = aws_subnet.subnet-1.id
+  security_groups = [aws_security_group.ec2-open-sg.id]
+  user_data       = <<-EOF
+              #!/bin/bash
+              sudo yum install docker -y
+              sudo systemctl start docker.service
+              sudo docker run --name fixedapp -p 8080:8080 raphaelkw/fixedapp
+              EOF
+}
 
-
+# output public ip address for fixedapp app
+output "fixedapp-publicip" {
+  value = aws_instance.fixedapp.public_ip
+}
 
 
 
