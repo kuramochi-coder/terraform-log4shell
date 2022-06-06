@@ -39,5 +39,5 @@ pwned
 
 ## Reference
 
-https://www.lunasec.io/docs/blog/log4j-zero-day/
-https://bigb0ss.medium.com/appsec-log4shell-cve-2021-44228-606f91e56866
+- https://www.lunasec.io/docs/blog/log4j-zero-day/
+- https://bigb0ss.medium.com/appsec-log4shell-cve-2021-44228-606f91e56866
