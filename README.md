@@ -6,8 +6,8 @@ Log4Shell POC Using Terraform
 
 This terraform creates two instances on a VPC in AWS Cloud:
 
-- [JNDIExploit](https://github.com/feihong-cs/JNDIExploit)
-- [Vulnerable-App](https://github.com/christophetd/log4shell-vulnerable-app)
+- [jndiexploit](https://github.com/feihong-cs/JNDIExploit)
+- [log4shellapp](https://github.com/christophetd/log4shell-vulnerable-app)
 
 Please ensure that you have configured aws cli with your Access key ID and Secret access key.
 In order to ssh into the ec2 instances, please update ssh public key in terraform before running terraform apply
